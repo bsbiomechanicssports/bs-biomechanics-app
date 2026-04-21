@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#0a1628">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BS Biomechanics">
+  <title>BS Biomechanics Club Management</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- GİRİŞ EKRANI -->
+<div id="giris-ekrani" class="ekran aktif">
+  <div class="giris-arka"></div>
+  <div class="giris-icerik">
+    <div class="logo-alan">
+      <img src="icons/logo.png" alt="BS Biomechanics" class="giris-logo">
+      <div class="giris-baslik">
+        <h1><span class="cyan">BS</span> BİOMECHANİCS</h1>
+        <p>CLUB MANAGEMENT</p>
+      </div>
+    </div>
+    <div class="giris-alti">
+      <p class="giris-aciklama">Spor kulübü yönetim sistemine hoş geldiniz</p>
+      <button id="google-giris-btn" class="btn-google">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.34-8.16 2.34-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Google ile Giriş Yap
+      </button>
+      <p class="versiyon">v1.0 · BS Biomechanics Sports</p>
+    </div>
+  </div>
+</div>
+
+<!-- ANA UYGULAMA -->
+<div id="ana-uygulama" class="ekran">
+
+  <!-- ÜST BAR -->
+  <header class="ust-bar">
+    <div class="ust-sol">
+      <img src="icons/logo.png" alt="BS" class="ust-logo">
+      <div class="ust-baslik">
+        <span class="cyan">BS</span> CLUB
+      </div>
+    </div>
+    <div class="ust-sag">
+      <button class="bildirim-btn" id="bildirim-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="bildirim-rozet" id="bildirim-rozet" style="display:none">0</span>
+      </button>
+      <div class="kullanici-avatar" id="kullanici-avatar" onclick="profilGoster()"></div>
+    </div>
+  </header>
+
+  <!-- İÇERİK ALANI -->
+  <main class="icerik-alan">
+
+    <!-- PANEL: ANASAYFA -->
+    <div id="panel-anasayfa" class="panel aktif">
+      <div class="hosgeldin-kart">
+        <div class="hosgeldin-metin">
+          <p class="hosgeldin-alt">Hoş geldiniz</p>
+          <h2 id="kullanici-adi-goster">Yükleniyor...</h2>
+        </div>
+        <div class="bugun-ozet">
+          <div class="ozet-item">
+            <span class="ozet-sayi" id="bugun-etkinlik">0</span>
+            <span class="ozet-etiket">Bugün</span>
+          </div>
+          <div class="ozet-ayrac"></div>
+          <div class="ozet-item">
+            <span class="ozet-sayi" id="bekleyen-gorev">0</span>
+            <span class="ozet-etiket">Görev</span>
+          </div>
+          <div class="ozet-ayrac"></div>
+          <div class="ozet-item">
+            <span class="ozet-sayi" id="okunmamis-mesaj">0</span>
+            <span class="ozet-etiket">Mesaj</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bolum-baslik">Bugünkü Program</div>
+      <div id="bugun-listesi" class="etkinlik-listesi">
+        <div class="bos-durum">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <p>Bugün etkinlik yok</p>
+        </div>
+      </div>
+
+      <div class="bolum-baslik">Bekleyen Görevler</div>
+      <div id="anasayfa-gorev-listesi" class="gorev-listesi-kisa">
+        <div class="bos-durum">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <p>Bekleyen görev yok</p>
+        </div>
+      </div>
+
+      <!-- YÖNETİCİ BUTONU - sadece admin/manager görür -->
+      <div id="yonetici-alan" style="display:none">
+        <div class="bolum-baslik">Yönetim</div>
+        <div class="yonetim-grid">
+          <button class="yonetim-kart" onclick="panelGoster('panel-kullaniciyonetimi')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Kullanıcılar</span>
+          </button>
+          <button class="yonetim-kart" onclick="panelGoster('panel-davet')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Davet Et</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: TAKVİM -->
+    <div id="panel-takvim" class="panel">
+      <div class="panel-baslik-satir">
+        <h2 class="panel-baslik">Takvim</h2>
+        <button class="btn-ekle" onclick="etkinlikEkleModal()">+ Etkinlik</button>
+      </div>
+      <div class="takvim-nav">
+        <button onclick="takvimNavigasyon(-1)">‹</button>
+        <span id="takvim-baslik">Yükleniyor...</span>
+        <button onclick="takvimNavigasyon(1)">›</button>
+      </div>
+      <div class="takvim-grid" id="takvim-grid"></div>
+      <div class="bolum-baslik" style="margin-top:20px" id="secili-gun-baslik">Etkinlikler</div>
+      <div id="secili-gun-etkinlikler" class="etkinlik-listesi"></div>
+    </div>
+
+    <!-- PANEL: GÖREVLER -->
+    <div id="panel-gorevler" class="panel">
+      <div class="panel-baslik-satir">
+        <h2 class="panel-baslik">Görevler</h2>
+        <button class="btn-ekle" onclick="gorevEkleModal()">+ Görev</button>
+      </div>
+      <div class="filtre-satirlar">
+        <button class="filtre-btn aktif" onclick="gorevFiltre('aktif', this)">Aktif</button>
+        <button class="filtre-btn" onclick="gorevFiltre('benim', this)">Benim</button>
+        <button class="filtre-btn" onclick="gorevFiltre('tamamlandi', this)">Tamamlanan</button>
+      </div>
+      <div id="gorev-listesi" class="gorev-listesi"></div>
+    </div>
+
+    <!-- PANEL: MESAJLAR -->
+    <div id="panel-mesajlar" class="panel">
+      <div class="panel-baslik-satir">
+        <h2 class="panel-baslik">Mesajlar</h2>
+        <button class="btn-ekle" onclick="yeniKanalModal()">+ Kanal</button>
+      </div>
+      <div id="kanal-listesi" class="kanal-listesi"></div>
+    </div>
+
+    <!-- PANEL: SOHBET (mesajlar alt paneli) -->
+    <div id="panel-sohbet" class="panel">
+      <div class="sohbet-ust">
+        <button class="geri-btn" onclick="panelGoster('panel-mesajlar')">‹</button>
+        <div class="sohbet-baslik-alan">
+          <span id="sohbet-kanal-adi">Kanal</span>
+          <span id="sohbet-kanal-uyeler" class="sohbet-uyeler"></span>
+        </div>
+      </div>
+      <div id="mesaj-listesi" class="mesaj-listesi"></div>
+      <div class="mesaj-yazma">
+        <input type="text" id="mesaj-input" placeholder="Mesaj yaz..." onkeypress="mesajGonderEnter(event)">
+        <button onclick="mesajGonder()" class="gonder-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- PANEL: PROFİL -->
+    <div id="panel-profil" class="panel">
+      <h2 class="panel-baslik">Profil</h2>
+      <div class="profil-kart">
+        <div class="profil-avatar" id="profil-avatar-buyuk"></div>
+        <div class="profil-bilgi">
+          <h3 id="profil-ad"></h3>
+          <p id="profil-email"></p>
+          <span class="profil-rol" id="profil-rol"></span>
+        </div>
+      </div>
+      <div class="ayar-listesi">
+        <div class="ayar-item">
+          <span>Bildirimler</span>
+          <label class="toggle"><input type="checkbox" id="bildirim-toggle" checked onchange="bildirimAyar()"><span class="slider"></span></label>
+        </div>
+        <div class="ayar-item">
+          <span>Departman</span>
+          <input type="text" id="departman-input" class="ayar-input" placeholder="Departmanınız">
+        </div>
+        <button class="btn-kaydet" onclick="profilKaydet()">Kaydet</button>
+        <div style="margin-top:4px">
+          <div style="font-size:12px;color:var(--yazi-dim);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px">Google Takvim Senkronizasyonu</div>
+          <button id="gcal-btn" onclick="gcalBagla()" style="width:100%;padding:12px;border-radius:10px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;font-size:14px;font-weight:600;font-family:'Exo 2',sans-serif;cursor:pointer;text-align:center">
+            Google Takvime Bagla
+          </button>
+          <p style="font-size:12px;color:var(--yazi-dim);margin-top:8px;line-height:1.5">Bağlandıktan sonra oluşturduğunuz etkinlikler Google Takviminize otomatik eklenir.</p>
+        </div>
+      </div>
+      <button class="btn-cikis" onclick="cikisYap()">Çıkış Yap</button>
+    </div>
+
+    <!-- PANEL: KULLANICI YÖNETİMİ -->
+    <div id="panel-kullaniciyonetimi" class="panel">
+      <div class="panel-baslik-satir">
+        <button class="geri-btn" onclick="panelGoster('panel-anasayfa')">‹</button>
+        <h2 class="panel-baslik">Kullanıcılar</h2>
+      </div>
+      <div id="kullanici-listesi-yonetim"></div>
+    </div>
+
+    <!-- PANEL: DAVET -->
+    <div id="panel-davet" class="panel">
+      <div class="panel-baslik-satir">
+        <button class="geri-btn" onclick="panelGoster('panel-anasayfa')">‹</button>
+        <h2 class="panel-baslik">Kullanıcı Davet Et</h2>
+      </div>
+      <div class="davet-form">
+        <p class="davet-aciklama">Davet bağlantısını kopyalayın ve ekip arkadaşınıza gönderin. Bağlantıyla giriş yapan kişi otomatik olarak sisteme eklenir.</p>
+        <div class="davet-link-alan">
+          <input type="text" id="davet-link" readonly class="davet-input">
+          <button onclick="davetKopyala()" class="btn-kopyala">Kopyala</button>
+        </div>
+        <div class="bolum-baslik" style="margin-top:20px">Yeni kullanıcı rolü belirle</div>
+        <p class="kucuk-yazi">Sisteme katılan kullanıcının varsayılan rolü "Personel" olur. Rolü buradan değiştirebilirsiniz.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ALT NAVİGASYON -->
+  <nav class="alt-nav">
+    <button class="nav-btn aktif" onclick="navGit('anasayfa')" id="nav-anasayfa">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Ana Sayfa</span>
+    </button>
+    <button class="nav-btn" onclick="navGit('takvim')" id="nav-takvim">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Takvim</span>
+    </button>
+    <button class="nav-btn" onclick="navGit('gorevler')" id="nav-gorevler">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Görevler</span>
+    </button>
+    <button class="nav-btn" onclick="navGit('mesajlar')" id="nav-mesajlar">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Mesajlar</span>
+      <span class="nav-rozet" id="nav-mesaj-rozet" style="display:none">0</span>
+    </button>
+    <button class="nav-btn" onclick="navGit('profil')" id="nav-profil">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profil</span>
+    </button>
+  </nav>
+</div>
+
+<!-- MODALLER -->
+<div id="modal-overlay" class="modal-overlay" onclick="modalKapat()"></div>
+
+<!-- ETKİNLİK EKLE MODALİ -->
+<div id="modal-etkinlik" class="modal">
+  <div class="modal-baslik">
+    <h3 id="modal-etkinlik-baslik">Yeni Etkinlik</h3>
+    <button onclick="modalKapat()" class="modal-kapat">✕</button>
+  </div>
+  <div class="modal-icerik">
+    <input type="hidden" id="etkinlik-id">
+    <div class="form-grup">
+      <label>Başlık</label>
+      <input type="text" id="etkinlik-baslik" placeholder="Etkinlik adı">
+    </div>
+    <div class="form-grup">
+      <label>Tür</label>
+      <select id="etkinlik-tur">
+        <option value="toplanti">Toplantı</option>
+        <option value="mac">Maç</option>
+        <option value="antrenman">Antrenman</option>
+        <option value="idari">İdari</option>
+        <option value="saglik">Sağlık</option>
+        <option value="teknik">Teknik</option>
+      </select>
+    </div>
+    <div class="form-grup">
+      <label>Başlangıç</label>
+      <input type="datetime-local" id="etkinlik-baslangic">
+    </div>
+    <div class="form-grup">
+      <label>Bitiş</label>
+      <input type="datetime-local" id="etkinlik-bitis">
+    </div>
+    <div class="form-grup">
+      <label>Açıklama</label>
+      <textarea id="etkinlik-aciklama" placeholder="Açıklama (isteğe bağlı)" rows="2"></textarea>
+    </div>
+    <div class="form-grup">
+      <label>Katılımcılar</label>
+      <div id="katilimci-secim" class="katilimci-secim"></div>
+    </div>
+    <div class="form-grup">
+      <label>Tekrar</label>
+      <select id="etkinlik-tekrar">
+        <option value="yok">Tekrar yok</option>
+        <option value="haftalik">Her hafta</option>
+        <option value="aylik">Her ay</option>
+      </select>
+    </div>
+    <div class="modal-butonlar">
+      <button onclick="modalKapat()" class="btn-iptal">İptal</button>
+      <button onclick="etkinlikKaydet()" class="btn-kaydet-modal">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- GÖREV EKLE MODALİ -->
+<div id="modal-gorev" class="modal">
+  <div class="modal-baslik">
+    <h3 id="modal-gorev-baslik">Yeni Görev</h3>
+    <button onclick="modalKapat()" class="modal-kapat">✕</button>
+  </div>
+  <div class="modal-icerik">
+    <input type="hidden" id="gorev-id">
+    <div class="form-grup">
+      <label>Görev Başlığı</label>
+      <input type="text" id="gorev-baslik" placeholder="Görev adı">
+    </div>
+    <div class="form-grup">
+      <label>Açıklama</label>
+      <textarea id="gorev-aciklama" placeholder="Açıklama (isteğe bağlı)" rows="2"></textarea>
+    </div>
+    <div class="form-grup">
+      <label>Öncelik</label>
+      <select id="gorev-oncelik">
+        <option value="normal">Normal</option>
+        <option value="acil">Acil</option>
+        <option value="dusuk">Düşük</option>
+      </select>
+    </div>
+    <div class="form-grup">
+      <label>Son Tarih</label>
+      <input type="datetime-local" id="gorev-son-tarih">
+    </div>
+    <div class="form-grup">
+      <label>Atanan Kişiler</label>
+      <div id="gorev-katilimci-secim" class="katilimci-secim"></div>
+    </div>
+    <div class="modal-butonlar">
+      <button onclick="modalKapat()" class="btn-iptal">İptal</button>
+      <button onclick="gorevKaydet()" class="btn-kaydet-modal">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- YENİ KANAL MODALİ -->
+<div id="modal-kanal" class="modal">
+  <div class="modal-baslik">
+    <h3>Yeni Kanal / Sohbet</h3>
+    <button onclick="modalKapat()" class="modal-kapat">✕</button>
+  </div>
+  <div class="modal-icerik">
+    <div class="form-grup">
+      <label>Kanal Adı</label>
+      <input type="text" id="kanal-adi" placeholder="Örn: antrenörler, idari-ekip">
+    </div>
+    <div class="form-grup">
+      <label>Tür</label>
+      <select id="kanal-tur">
+        <option value="grup">Grup Kanalı</option>
+        <option value="dm">Direkt Mesaj</option>
+      </select>
+    </div>
+    <div class="form-grup">
+      <label>Üyeler</label>
+      <div id="kanal-katilimci-secim" class="katilimci-secim"></div>
+    </div>
+    <div class="modal-butonlar">
+      <button onclick="modalKapat()" class="btn-iptal">İptal</button>
+      <button onclick="kanalOlustur()" class="btn-kaydet-modal">Oluştur</button>
+    </div>
+  </div>
+</div>
+
+<!-- BİLDİRİM PANELİ -->
+<div id="bildirim-panel" class="bildirim-panel">
+  <div class="bildirim-panel-baslik">
+    <span>Bildirimler</span>
+    <button onclick="bildirimleriOku()" class="tumunu-oku">Tümünü oku</button>
+  </div>
+  <div id="bildirim-listesi"></div>
+</div>
+
+<!-- TOAST BİLDİRİM -->
+<div id="toast" class="toast"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
